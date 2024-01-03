@@ -60,13 +60,13 @@ int main (){
 
         case 3: {
             vector<bool> VectorLong, temp;
-            int direction, x, x1;
+            int direction, StRaz, Razs;
             cout << "Введите данные типа Long: ";
             cin >> TestLD.ValueL;
             cout << "Введите старший разряд(1-64): ";
-            cin >> x;
+            cin >> StRaz;
             cout << "Введите количество разрядов в группе";
-            cin >> x1;
+            cin >> Razs;
             cout << "На сколько сдвинуть вправо (задайте отрицательное число для сдвига влево)? ";
             cin >> direction;
             for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //цикл прогона по битам (64)
@@ -77,7 +77,36 @@ int main (){
                 cout << i;
             }
             cout << "\n";
-            for (int i = 0; i< VectorLong.size();i++){
+
+            if (direction>=0) {
+                while (Razs>direction){
+                    direction = direction - Razs;
+                }
+                rotate(VectorLong.begin() + (StRaz-Razs),
+                       VectorLong.begin() + (StRaz-direction),
+                       VectorLong.begin() + StRaz);
+                reverse(VectorLong.begin(), VectorLong.end());
+                for (auto i: VectorLong) {
+                    cout << i;
+                }
+            }
+            else {
+                direction *=-1;
+                while (Razs>direction){
+                    direction = direction - Razs;
+                }
+                rotate(VectorLong.begin() + (StRaz - Razs),
+                       VectorLong.begin() + (StRaz + direction),
+                       VectorLong.begin() + StRaz);
+                //reverse(VectorLong.begin(), VectorLong.end());
+                for (auto i: VectorLong) {
+                    cout << i;
+                }
+            }
+
+
+
+            /*for (int i = 0; i< VectorLong.size();i++){
                 if (i>x-x1-1){
                     if(i<=x-1)
                         temp.push_back(VectorLong[i]);
@@ -90,7 +119,7 @@ int main (){
             rotate(temp.begin(), temp.begin()+direction, temp.end());
             for(auto i:temp){
                 cout << i;
-            }
+            }*/
 
 
 
