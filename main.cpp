@@ -5,6 +5,9 @@
 #include "cstdint"
 using namespace std;
 
+
+//void output_double_in_bin(union number);
+
 union {
     long ValueL;
     double ValueD;
@@ -60,37 +63,33 @@ int main (){
 
         case 3: {
             vector<bool> VectorLong, temp;
-            int direction, x, x1;
+            int direction, StRaz, Sdvig;
             cout << "Введите данные типа Long: ";
             cin >> TestLD.ValueL;
             cout << "Введите старший разряд(1-64): ";
-            cin >> x;
+            cin >> StRaz;
             cout << "Введите количество разрядов в группе";
-            cin >> x1;
+            cin >> Sdvig;
             cout << "На сколько сдвинуть вправо (задайте отрицательное число для сдвига влево)? ";
             cin >> direction;
             for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //цикл прогона по битам (64)
                 VectorLong.push_back(((TestLD.ValueL & (1<<0))==0) ? 0 : 1 );              //обращение к старшему биту и поверка его на 0\1, если 0 - выводим 0, если отлично от 0 (любое другое значение) - выводим 1
+                if (i<StRaz){
+                    if(i>=StRaz-Sdvig) temp.push_back(VectorLong[i]);                  //выбор и запись числа во временный вектор
+                }
                 TestLD.ValueL >>= 1;                                                                //сдвиг бита влево
             }
             for (auto i : VectorLong) {
                 cout << i;
             }
             cout << "\n";
-            for (int i = 0; i< VectorLong.size();i++){
-                if (i>x-x1-1){
-                    if(i<=x-1)
-                        temp.push_back(VectorLong[i]);
-                }
-            }
-            for(auto i:temp){
+            for (auto i : temp) {
                 cout << i;
             }
             cout << "\n";
-            rotate(temp.begin(), temp.begin()+direction, temp.end());
-            for(auto i:temp){
-                cout << i;
-            }
+
+
+// доделать это говно!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
