@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "algorithm"
 #include "vector"
@@ -7,7 +8,6 @@ using namespace std;
 
 
 void output_double_in_bin(union number);
-
 
 union {
     long ValueL;
@@ -20,55 +20,84 @@ int main (){
     setlocale(LC_ALL, "Rus");
 
     unsigned int choice;
-    cout << "Введите:\n"
-         << "\n    1 - данные типа Long и получение их двоичного представления;"
-         << "\n    2 - данные типа Double  получение их двоичного представления;"
-         << "\n    3 - данные типа Long и выполнние преобразования;"
-         << "\n    4 - данные типа Double и выполние преобразования;"
+    cout << "Г‚ГўГҐГ¤ГЁГІГҐ:\n"
+         << "\n    1 - Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Long ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГҐ ГЁГµ Г¤ГўГ®ГЁГ·Г­Г®ГЈГ® ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї;"
+         << "\n    2 - Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Double  ГЇГ®Г«ГіГ·ГҐГ­ГЁГҐ ГЁГµ Г¤ГўГ®ГЁГ·Г­Г®ГЈГ® ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї;"
+         << "\n    3 - Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Long ГЁ ГўГ»ГЇГ®Г«Г­Г­ГЁГҐ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГї;"
+         << "\n    4 - Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Double ГЁ ГўГ»ГЇГ®Г«Г­ГЁГҐ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГї;"
          << "\n    0 - Exit.\n\n";
     cin >> choice;
     cin.ignore(4, '\n');
     switch (choice) {
         case 1:{
-            cout << "\nВведите данные типа Long: ";
+            cout << "\nГ‚ГўГҐГ¤ГЁГІГҐ Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Long: ";
             cin >> TestLD.ValueL;
-            cout << "\nВаши данные типа Long в двоичном представлении: ";
-            for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //цикл прогона по битам (64)
-                cout << (((TestLD.ValueL & (1<<(sizeof(long) * 8 - 1)))==0) ? 0 : 1 );              //обращение к старшему биту и поверка его на 0\1, если 0 - выводим 0, если отлично от 0 (любое другое значение) - выводим 1
-                TestLD.ValueL <<= 1;                                                                //сдвиг бита влево
+            cout << "\nГ‚Г ГёГЁ Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Long Гў Г¤ГўГ®ГЁГ·Г­Г®Г¬ ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГЁ: ";
+            for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //Г¶ГЁГЄГ« ГЇГ°Г®ГЈГ®Г­Г  ГЇГ® ГЎГЁГІГ Г¬ (64)
+                cout << (((TestLD.ValueL & (1<<(sizeof(long) * 8 - 1)))==0) ? 0 : 1 );              //Г®ГЎГ°Г Г№ГҐГ­ГЁГҐ ГЄ Г±ГІГ Г°ГёГҐГ¬Гі ГЎГЁГІГі ГЁ ГЇГ®ГўГҐГ°ГЄГ  ГҐГЈГ® Г­Г  0\1, ГҐГ±Г«ГЁ 0 - ГўГ»ГўГ®Г¤ГЁГ¬ 0, ГҐГ±Г«ГЁ Г®ГІГ«ГЁГ·Г­Г® Г®ГІ 0 (Г«ГѕГЎГ®ГҐ Г¤Г°ГіГЈГ®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ) - ГўГ»ГўГ®Г¤ГЁГ¬ 1
+                TestLD.ValueL <<= 1;                                                                //Г±Г¤ГўГЁГЈ ГЎГЁГІГ  ГўГ«ГҐГўГ®
             }
             break;
         }
 
         case 2:{
             vector<bool> VectorDouble;
-            cout << "\nВведите данные типа Double: ";
+            cout << "\nГ‚ГўГҐГ¤ГЁГІГҐ Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Double: ";
             cin >> TestLD.ValueD;
-            cout << "\nВаши данные типа Double в двоичном представлении: ";
+            cout << "\nГ‚Г ГёГЁ Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Double Гў Г¤ГўГ®ГЁГ·Г­Г®Г¬ ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГЁ: ";
             output_double_in_bin(union TestLD);
             break;
         }
 
         case 3: {
             vector<bool> VectorLong, temp;
-            int direction, x, x1;
-            cout << "Введите данные типа Long: ";
+            int direction, StRaz, Razs;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г¤Г Г­Г­Г»ГҐ ГІГЁГЇГ  Long: ";
             cin >> TestLD.ValueL;
-            cout << "Введите старший разряд(1-64): ";
-            cin >> x;
-            cout << "Введите количество разрядов в группе";
-            cin >> x1;
-            cout << "На сколько сдвинуть вправо (задайте отрицательное число для сдвига влево)? ";
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г±ГІГ Г°ГёГЁГ© Г°Г Г§Г°ГїГ¤(1-64): ";
+            cin >> StRaz;
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г°Г Г§Г°ГїГ¤Г®Гў Гў ГЈГ°ГіГЇГЇГҐ";
+            cin >> Razs;
+            cout << "ГЌГ  Г±ГЄГ®Г«ГјГЄГ® Г±Г¤ГўГЁГ­ГіГІГј ГўГЇГ°Г ГўГ® (Г§Г Г¤Г Г©ГІГҐ Г®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®ГҐ Г·ГЁГ±Г«Г® Г¤Г«Гї Г±Г¤ГўГЁГЈГ  ГўГ«ГҐГўГ®)? ";
             cin >> direction;
-            for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //цикл прогона по битам (64)
-                VectorLong.push_back(((TestLD.ValueL & (1<<0))==0) ? 0 : 1 );              //обращение к старшему биту и поверка его на 0\1, если 0 - выводим 0, если отлично от 0 (любое другое значение) - выводим 1
-                TestLD.ValueL >>= 1;                                                                //сдвиг бита влево
+            for (int i = 0; i < sizeof(TestLD.ValueL)*8; i++){                                      //Г¶ГЁГЄГ« ГЇГ°Г®ГЈГ®Г­Г  ГЇГ® ГЎГЁГІГ Г¬ (64)
+                VectorLong.push_back(((TestLD.ValueL & (1<<0))==0) ? 0 : 1 );              //Г®ГЎГ°Г Г№ГҐГ­ГЁГҐ ГЄ Г±ГІГ Г°ГёГҐГ¬Гі ГЎГЁГІГі ГЁ ГЇГ®ГўГҐГ°ГЄГ  ГҐГЈГ® Г­Г  0\1, ГҐГ±Г«ГЁ 0 - ГўГ»ГўГ®Г¤ГЁГ¬ 0, ГҐГ±Г«ГЁ Г®ГІГ«ГЁГ·Г­Г® Г®ГІ 0 (Г«ГѕГЎГ®ГҐ Г¤Г°ГіГЈГ®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ) - ГўГ»ГўГ®Г¤ГЁГ¬ 1
+                TestLD.ValueL >>= 1;                                                                //Г±Г¤ГўГЁГЈ ГЎГЁГІГ  ГўГ«ГҐГўГ®
             }
             for (auto i : VectorLong) {
                 cout << i;
             }
             cout << "\n";
-            for (int i = 0; i< VectorLong.size();i++){
+
+            if (direction>=0) {
+                while (Razs>direction){
+                    direction = direction - Razs;
+                }
+                rotate(VectorLong.begin() + (StRaz-Razs),
+                       VectorLong.begin() + (StRaz-direction),
+                       VectorLong.begin() + StRaz);
+                reverse(VectorLong.begin(), VectorLong.end());
+                for (auto i: VectorLong) {
+                    cout << i;
+                }
+            }
+            else {
+                direction *=-1;
+                while (Razs>direction){
+                    direction = direction - Razs;
+                }
+                rotate(VectorLong.begin() + (StRaz - Razs),
+                       VectorLong.begin() + (StRaz + direction),
+                       VectorLong.begin() + StRaz);
+                //reverse(VectorLong.begin(), VectorLong.end());
+                for (auto i: VectorLong) {
+                    cout << i;
+                }
+            }
+
+
+
+            /*for (int i = 0; i< VectorLong.size();i++){
                 if (i>x-x1-1){
                     if(i<=x-1)
                         temp.push_back(VectorLong[i]);
@@ -81,7 +110,7 @@ int main (){
             rotate(temp.begin(), temp.begin()+direction, temp.end());
             for(auto i:temp){
                 cout << i;
-            }
+            }*/
 
 
 
@@ -100,9 +129,9 @@ int main (){
 
         case 4: {
             int direction, x;
-            cout << "Введите старший разряд: ";
+            cout << "Г‚ГўГҐГ¤ГЁГІГҐ Г±ГІГ Г°ГёГЁГ© Г°Г Г§Г°ГїГ¤: ";
             cin >> x;
-            cout << "На сколько сдвинуть вправо (задайте отрицательное число для сдвига влево)? ";
+            cout << "ГЌГ  Г±ГЄГ®Г«ГјГЄГ® Г±Г¤ГўГЁГ­ГіГІГј ГўГЇГ°Г ГўГ® (Г§Г Г¤Г Г©ГІГҐ Г®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®ГҐ Г·ГЁГ±Г«Г® Г¤Г«Гї Г±Г¤ГўГЁГЈГ  ГўГ«ГҐГўГ®)? ";
             cin >> direction;
             static_assert(sizeof(TestLD.ValueD) != sizeof(TestLD.ValueL), "value0 does no equal to value1");
             TestLD.ValueL >>= direction;
@@ -115,38 +144,6 @@ int main (){
     return 0;
 }
 
-
-/*
-void FUNC (long perem){
-    for (int i = 0; i < sizeof(perem)*8; i++){                                      //цикл прогона по битам (64)
-        cout << (((perem & (1<<(sizeof(long) * 8 - 1)))==0) ? 0 : 1 );              //обращение к старшему биту и поверка его на 0\1, если 0 - выводим 0, если отлично от 0 (любое другое значение) - выводим 1
-        perem <<= 1;                                                                //сдвиг бита влево
-    }
-}*/
-
-
-/*
-static_assert(sizeof(TestLD.ValueD) != sizeof(TestLD.ValueL), "ValueD does no equal to ValueL"); //если размеры типов данных не совпадают, то происходит ошибка компиляции и вывод диагностического сообщения
-FUNC(TestLD.ValueL);*/
-
-
-/*
-std::vector<int> output_double(myDouble count) {
-    std::vector<int> arr;
-    arr.resize(64);
-    int k = 0;
-    for (int i = 0; i < 8; i++) {
-        auto tmp = output_unsigned_char(count.arr[7 - i]);
-        for (int j = 0; j < tmp.size(); ++j) {
-            arr[k] = tmp[j];
-            ++k;
-        }
-    }
-    return arr;
-}
-
-vec_long_double = output_double(two);
-reverse(vec_long_double.begin(), vec_long_double.end());*/
 
 void output_double_in_bin(number)
 {
