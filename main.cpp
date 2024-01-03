@@ -5,6 +5,10 @@
 #include "cstdint"
 using namespace std;
 
+
+void output_double_in_bin(union number);
+
+
 union {
     long ValueL;
     double ValueD;
@@ -41,20 +45,7 @@ int main (){
             cout << "\n¬ведите данные типа Double: ";
             cin >> TestLD.ValueD;
             cout << "\n¬аши данные типа Double в двоичном представлении: ";
-            uint8_t *bytePointer = (uint8_t *)&TestLD.ValueD;
-            for(size_t i = 0; i < sizeof(double); i++)
-            {
-                uint8_t byte = bytePointer[i];
-                for(int bit = 0; bit < 8; bit++)
-                {
-                    VectorDouble.push_back(byte&1);
-                    byte >>= 1;
-                }
-            }
-            reverse(VectorDouble.begin(), VectorDouble.end());
-            for (auto i : VectorDouble){
-                cout << i;
-            }
+            output_double_in_bin(union TestLD);
             break;
         }
 
@@ -157,4 +148,22 @@ std::vector<int> output_double(myDouble count) {
 vec_long_double = output_double(two);
 reverse(vec_long_double.begin(), vec_long_double.end());*/
 
+void output_double_in_bin(number)
+{
+    uint8_t* bytePointer = (uint8_t*)&number.ValueD;
+    for (size_t i = 0; i < sizeof(double); i++)
+    {
+        //output double
+        uint8_t byte = bytePointer[i];
+        for (int bit = 0; bit < 8; bit++)
+        {
+            VectorDouble.push_back(byte & 1);
+            byte >>= 1;
+        }
+    }
+    reverse(VectorDouble.begin(), VectorDouble.end());
 
+    for (auto i : VectorDouble) {
+        cout << i;
+    }
+}
